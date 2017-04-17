@@ -1,0 +1,23 @@
+cd ../
+cd $1
+i=0
+
+trap "prer" SIGINT 
+prer()
+{
+    i=`expr $i + 1`
+    if test $i -eq 2 
+    then
+        echo Второе прерывание!!!!!!
+        du -c --block-size=512 `cat osishell.txt` | grep total
+    fi
+    echo Прерывание!
+}
+
+find -atime -5 -size +3 > osishell.txt
+sleep 1
+sleep 1
+sleep 1
+sleep 1
+cat osishell.txt
+#rm osishell.txt
